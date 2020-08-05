@@ -1,11 +1,11 @@
-import express, { Request, Response } from 'express'
+import express from 'express'
 
-import db from './database/connection'
+import ClassesController from './controllers/ClassesController'
 
 const routes = express.Router()
 
-routes.post('/classes', async (request: Request, response: Response) => {
-  return response.json({ name: 'Natanael' })
-})
+const classesController = new ClassesController()
+
+routes.post('/classes', classesController.create)
 
 export default routes
