@@ -51,7 +51,7 @@ export default class ClassesController {
     } = request.body
   
     const trx = await db.transaction()
-  
+
     try {
       const insertedUsersIds = await trx('users').insert({
         name,
@@ -85,6 +85,7 @@ export default class ClassesController {
   
       return response.status(201).send()
     } catch (error) {
+      console.log(error);
       await trx.rollback()
   
       return response.status(400).json({ error: 'Unexpected error while creating new class' })
