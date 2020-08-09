@@ -10,6 +10,12 @@ const styles = StyleSheet.create({
     marginTop: -40,
   },
 
+  teacherListEmpty: {
+    marginTop: 60,
+    fontFamily: 'Poppins_400Regular',
+    color: '#aaa',
+  },
+
   searchForm: {
     marginBottom: 24,
   },

@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
 
-  favorited: {
+  favorite: {
     backgroundColor: '#e33d3d'
   },
 
