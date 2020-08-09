@@ -2,7 +2,7 @@
 
 # Projeto
 
-O Proffy é um projeto que visa conectar estudantes aos seus professores favoritos.
+O Proffy é um projeto que visa conectar estudantes aos seus professores favoritos. Estude matérias importantes com quem você mais gosta de aprender.
 
 # Tecnologias
 
@@ -25,13 +25,22 @@ O Proffy é um projeto que visa conectar estudantes aos seus professores favorit
 
 Você vai precisar instalar o [Node.js](https://nodejs.org/en/download/) e o [Yarn](https://yarnpkg.com/).
 
-Para iniciar a aplicação, acesse a pasta do back-end, instale as dependências do projeto e inicie o servidor: 
+Na pasta `server`, instale as dependências e prepare o banco de dados para iniciar a API: 
 
-`cd server && yarn && yarn start`
+```shell
+> cd server
+> yarn
+> yarn knex:migrate
+> yarn start
+```
 
-Faça o mesmo para o front-end:
+Na pasta `web`, instale as dependências e inicie a aplicação:
 
-`cd web && yarn && yarn start`
+```shell
+> cd web
+> yarn
+> yarn start
+```
 
 Para executar o app mobile, instale o [Expo](https://expo.io/) no celular ou utilize um [emulador](https://react-native.rocketseat.dev/android/emulador).
 
