@@ -13,22 +13,27 @@ const TeacherList: React.FC = () => {
   const [teachers, setTeachers] = useState([])
 
   const [subject, setSubject] = useState('')
-  const [week_day, setWeekDay] = useState('')
+  const [weekDay, setWeekDay] = useState('')
   const [time, setTime] = useState('')
 
-  const searchTeachers = useCallback((event: FormEvent) => {
-    event.preventDefault()
+  const searchTeachers = useCallback(
+    (event: FormEvent) => {
+      event.preventDefault()
 
-    api.get('classes', {
-      params: {
-        subject,
-        week_day,
-        time,
-      }
-    }).then(response => {
-      setTeachers(response.data)
-    })
-  }, [subject, week_day, time])
+      api
+        .get('classes', {
+          params: {
+            subject,
+            week_day: weekDay,
+            time,
+          },
+        })
+        .then(response => {
+          setTeachers(response.data)
+        })
+    },
+    [subject, weekDay, time],
+  )
 
   return (
     <div id="page-teacher-list" className="container">
@@ -56,7 +61,7 @@ const TeacherList: React.FC = () => {
           <Select
             name="week_day"
             label="Dia da semana"
-            value={week_day}
+            value={weekDay}
             onChange={event => setWeekDay(event.target.value)}
             options={[
               { value: '0', label: 'Domingo' },
@@ -77,9 +82,7 @@ const TeacherList: React.FC = () => {
             onChange={event => setTime(event.target.value)}
           />
 
-          <button type="submit">
-            Buscar
-          </button>
+          <button type="submit">Buscar</button>
         </form>
       </PageHeader>
 

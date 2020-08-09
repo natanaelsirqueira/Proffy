@@ -1,19 +1,19 @@
-import React, { useCallback } from "react"
+import React, { useCallback } from 'react'
 
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg'
 
-import api from "../../services/api";
+import api from '../../services/api'
 
 import './styles.css'
 
 export interface Teacher {
-  id: number;
-  name: string;
-  avatar: string;
-  whatsapp: string;
-  bio: string;
-  subject: string;
-  cost: number;
+  id: number
+  name: string
+  avatar: string
+  whatsapp: string
+  bio: string
+  subject: string
+  cost: number
 }
 
 interface TeacherItemProps {
@@ -23,15 +23,12 @@ interface TeacherItemProps {
 const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
   const createConnection = useCallback(() => {
     api.post('connections', { user_id: teacher.id })
-  }, [])
+  }, [teacher.id])
 
   return (
     <article className="teacher-item">
       <header>
-        <img
-          src={teacher.avatar}
-          alt={teacher.name}
-        />
+        <img src={teacher.avatar} alt={teacher.name} />
 
         <div>
           <strong>{teacher.name}</strong>
@@ -47,13 +44,18 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
           <strong>R$ {teacher.cost}</strong>
         </p>
 
-        <a onClick={createConnection} href={`https://wa.me/${teacher.whatsapp}`} target="_blank">
+        <a
+          onClick={createConnection}
+          href={`https://wa.me/${teacher.whatsapp}`}
+          target="_blank"
+          rel="noreferrer"
+        >
           <img src={whatsappIcon} alt="Whatsapp" />
           Entrar em contato
         </a>
       </footer>
     </article>
-  );
-};
+  )
+}
 
 export default TeacherItem

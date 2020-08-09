@@ -10,13 +10,13 @@ import api from '../../services/api'
 
 import styles from './styles'
 
-function TeacherList() {
+const TeacherList: React.FC = () => {
   const [isFiltersVisible, setIsFiltersVisible] = useState(false)
   const [teachers, setTeachers] = useState([])
   const [favorites, setFavorites] = useState<number[]>([])
 
   const [subject, setSubject] = useState('')
-  const [week_day, setWeekDay] = useState('')
+  const [weekDay, setWeekDay] = useState('')
   const [time, setTime] = useState('')
 
   const weekDays = [
@@ -26,7 +26,7 @@ function TeacherList() {
     'Quarta-feira',
     'Quinta-feira',
     'Sexta-feira',
-    'Sábado'
+    'Sábado',
   ]
 
   function loadFavorites() {
@@ -46,27 +46,29 @@ function TeacherList() {
   function handleFiltersSubmit() {
     loadFavorites()
 
-    api.get('classes', {
-      params: {
-        subject,
-        week_day: weekDays.indexOf(week_day),
-        time,
-      }
-    }).then(response => {
-      setIsFiltersVisible(false)
-      setTeachers(response.data)
-    })
+    api
+      .get('classes', {
+        params: {
+          subject,
+          week_day: weekDays.indexOf(weekDay),
+          time,
+        },
+      })
+      .then(response => {
+        setIsFiltersVisible(false)
+        setTeachers(response.data)
+      })
   }
 
   return (
     <View style={styles.container}>
       <PageHeader
         title="Proffys disponíveis"
-        headerRight={(
+        headerRight={
           <BorderlessButton onPress={handleToggleFiltersVisible}>
             <Feather name="filter" size={20} color="#fff" />
           </BorderlessButton>
-        )}
+        }
       >
         {isFiltersVisible && (
           <View style={styles.searchForm}>
@@ -84,7 +86,7 @@ function TeacherList() {
                 <Text style={styles.label}>Dia da semana</Text>
                 <TextInput
                   style={styles.input}
-                  value={week_day}
+                  value={weekDay}
                   onChangeText={text => setWeekDay(text)}
                   placeholder="Qual o dia?"
                   placeholderTextColor="#c1bccc"
@@ -117,24 +119,20 @@ function TeacherList() {
         style={styles.teacherList}
         contentContainerStyle={{
           paddingHorizontal: 16,
-          paddingBottom: 16
+          paddingBottom: 16,
         }}
       >
-        { 
-          teachers.length ? (
-            teachers.map((teacher: Teacher) => (
-              <TeacherItem
-                key={teacher.id}
-                teacher={teacher}
-                favorite={favorites.includes(teacher.id)}
-              />
-            ))
-          ) : (
-            <Text style={styles.teacherListEmpty}>
-              Nenhum proffy disponível.
-            </Text>
-          )
-        }
+        {teachers.length ? (
+          teachers.map((teacher: Teacher) => (
+            <TeacherItem
+              key={teacher.id}
+              teacher={teacher}
+              favorite={favorites.includes(teacher.id)}
+            />
+          ))
+        ) : (
+          <Text style={styles.teacherListEmpty}>Nenhum proffy disponível.</Text>
+        )}
       </ScrollView>
     </View>
   )

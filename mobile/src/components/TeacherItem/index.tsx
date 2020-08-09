@@ -11,18 +11,18 @@ import api from '../../services/api'
 import styles from './styles'
 
 export interface Teacher {
-  id: number;
-  name: string;
-  avatar: string;
-  whatsapp: string;
-  bio: string;
-  subject: string;
-  cost: number;
+  id: number
+  name: string
+  avatar: string
+  whatsapp: string
+  bio: string
+  subject: string
+  cost: number
 }
 
 interface TeacherItemProps {
-  teacher: Teacher;
-  favorite: boolean;
+  teacher: Teacher
+  favorite: boolean
 }
 
 const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorite }) => {
@@ -38,15 +38,15 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorite }) => {
     const favorites = await AsyncStorage.getItem('favorites')
 
     let favoritesArray = []
-    
+
     if (favorites) {
       favoritesArray = JSON.parse(favorites)
     }
 
     if (isFavorite) {
-      const favoriteIndex = favoritesArray.findIndex((favoriteTeacher: Teacher) => (
-        favoriteTeacher.id === teacher.id
-      ))
+      const favoriteIndex = favoritesArray.findIndex(
+        (favoriteTeacher: Teacher) => favoriteTeacher.id === teacher.id,
+      )
 
       favoritesArray.splice(favoriteIndex, 1)
 
@@ -71,9 +71,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorite }) => {
         </View>
       </View>
 
-      <Text style={styles.bio}>
-        {teacher.bio}
-      </Text>
+      <Text style={styles.bio}>{teacher.bio}</Text>
 
       <View style={styles.footer}>
         <Text style={styles.price}>
@@ -84,25 +82,21 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, favorite }) => {
         <View style={styles.buttonsContainer}>
           <RectButton
             onPress={handleToggleFavorite}
-            style={[
-              styles.favoriteButton,
-              isFavorite ? styles.favorite : {}
-            ]}
+            style={[styles.favoriteButton, isFavorite ? styles.favorite : {}]}
           >
-            {
-              isFavorite ? (
-                <Image source={unfavoriteIcon} />
-              ) : (
-                <Image source={heartOutlineIcon} />
-              )
-            }
+            {isFavorite ? (
+              <Image source={unfavoriteIcon} />
+            ) : (
+              <Image source={heartOutlineIcon} />
+            )}
           </RectButton>
 
-          <RectButton onPress={handleLinkToWhatsApp} style={styles.contactButton}>
+          <RectButton
+            onPress={handleLinkToWhatsApp}
+            style={styles.contactButton}
+          >
             <Image source={whatsappIcon} />
-            <Text style={styles.contactButtonText}>
-              Entrar em contato
-            </Text>
+            <Text style={styles.contactButtonText}>Entrar em contato</Text>
           </RectButton>
         </View>
       </View>

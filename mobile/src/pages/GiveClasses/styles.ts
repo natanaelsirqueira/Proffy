@@ -5,12 +5,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#8257E5',
     justifyContent: 'center',
-    padding: 40
+    padding: 40,
   },
 
   content: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 
   title: {
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 32,
     lineHeight: 37,
-    maxWidth: 180
+    maxWidth: 180,
   },
 
   description: {
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 26,
     maxWidth: 240,
-    marginTop: 24
+    marginTop: 24,
   },
 
   okButton: {
@@ -36,14 +36,14 @@ const styles = StyleSheet.create({
     height: 58,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 8
+    borderRadius: 8,
   },
 
   okButtonText: {
     color: '#FFF',
     fontFamily: 'Archivo_700Bold',
-    fontSize: 16
-  }
+    fontSize: 16,
+  },
 })
 
 export default styles

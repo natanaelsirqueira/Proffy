@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
 
   favorite: {
-    backgroundColor: '#e33d3d'
+    backgroundColor: '#e33d3d',
   },
 
   contactButton: {

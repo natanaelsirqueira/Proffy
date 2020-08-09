@@ -12,7 +12,7 @@ import api from '../../services/api'
 
 import styles from './styles'
 
-function Landing() {
+const Landing: React.FC = () => {
   const { navigate } = useNavigation()
 
   const [totalConnections, setTotalConnections] = useState(0)
@@ -39,9 +39,7 @@ function Landing() {
         >
           <Image source={studyIcon} />
 
-          <Text style={styles.buttonText}>
-            Estudar
-          </Text>
+          <Text style={styles.buttonText}>Estudar</Text>
         </RectButton>
 
         <RectButton
@@ -50,9 +48,7 @@ function Landing() {
         >
           <Image source={giveClassesIcon} />
 
-          <Text style={styles.buttonText}>
-            Dar aulas
-          </Text>
+          <Text style={styles.buttonText}>Dar aulas</Text>
         </RectButton>
       </View>
 
@@ -60,7 +56,7 @@ function Landing() {
         Total de {totalConnections}{' '}
         {totalConnections === 1
           ? 'conexão já realizada'
-          : 'conexões já realizadas'} {' '}
+          : 'conexões já realizadas'}{' '}
         <Image source={heartIcon} />
       </Text>
     </View>

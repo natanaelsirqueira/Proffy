@@ -8,7 +8,7 @@ import StudyTabs from './StudyTabs'
 
 const { Navigator, Screen } = createStackNavigator()
 
-function AppStack() {
+const AppStack: React.FC = () => {
   return (
     <NavigationContainer>
       <Navigator screenOptions={{ headerShown: false }}>

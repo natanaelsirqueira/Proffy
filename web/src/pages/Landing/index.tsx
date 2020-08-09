@@ -37,22 +37,22 @@ const Landing: React.FC = () => {
 
         <div className="buttons-container">
           <Link to="/study" className="study">
-            <img src={studyIcon} alt="Estudar"/>
+            <img src={studyIcon} alt="Estudar" />
             Estudar
           </Link>
 
           <Link to="/give-classes" className="give-classes">
-            <img src={giveClassesIcon} alt="Dar aulas"/>
+            <img src={giveClassesIcon} alt="Dar aulas" />
             Dar aulas
           </Link>
         </div>
 
         <span className="total-connections">
-          Total de {totalConnections}{" "}
+          Total de {totalConnections}{' '}
           {totalConnections === 1
-            ? "conexão já realizada"
-            : "conexões já realizadas"}
-          <img src={purpleHeartIcon} alt="Coração roxo"/>
+            ? 'conexão já realizada'
+            : 'conexões já realizadas'}
+          <img src={purpleHeartIcon} alt="Coração roxo" />
         </span>
       </div>
     </div>

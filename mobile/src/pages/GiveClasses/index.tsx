@@ -7,7 +7,7 @@ import giveClassesBgImg from '../../assets/images/give-classes-background.png'
 
 import styles from './styles'
 
-function GiveClasses() {
+const GiveClasses: React.FC = () => {
   const { goBack } = useNavigation()
 
   return (
@@ -17,19 +17,16 @@ function GiveClasses() {
         style={styles.content}
         resizeMode="contain"
       >
-        <Text style={styles.title}>
-          Quer ser um Proffy?
-        </Text>
+        <Text style={styles.title}>Quer ser um Proffy?</Text>
 
         <Text style={styles.description}>
-          Para começar, você precisa se cadastrar como professor(a) na nossa plataforma web.
+          Para começar, você precisa se cadastrar como professor(a) na nossa
+          plataforma web.
         </Text>
       </ImageBackground>
 
       <RectButton onPress={() => goBack()} style={styles.okButton}>
-        <Text style={styles.okButtonText}>
-          Tudo bem
-        </Text>
+        <Text style={styles.okButtonText}>Tudo bem</Text>
       </RectButton>
     </View>
   )

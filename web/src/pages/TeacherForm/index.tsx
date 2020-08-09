@@ -24,7 +24,7 @@ const TeacherForm: React.FC = () => {
   const [cost, setCost] = useState('')
 
   const [scheduleItems, setScheduleItems] = useState([
-    { week_day: 0, from: '', to: '' }
+    { week_day: 0, from: '', to: '' },
   ])
 
   const addScheduleItem = useCallback(() => {
@@ -46,31 +46,34 @@ const TeacherForm: React.FC = () => {
       })
 
       setScheduleItems(updatedScheduleItems)
-    }, 
-    [scheduleItems]
+    },
+    [scheduleItems],
   )
 
   const handleCreateClass = useCallback(
     (event: FormEvent) => {
       event.preventDefault()
 
-      api.post('classes', {
-        name,
-        avatar,
-        whatsapp,
-        bio,
-        subject,
-        cost: Number(cost),
-        schedule: scheduleItems
-      }).then(() => {
-        alert('Cadastro realizado com sucesso!')
+      api
+        .post('classes', {
+          name,
+          avatar,
+          whatsapp,
+          bio,
+          subject,
+          cost: Number(cost),
+          schedule: scheduleItems,
+        })
+        .then(() => {
+          alert('Cadastro realizado com sucesso!')
 
-        history.push('/')
-      }).catch(() => {
-        alert('Erro ao cadastrar classe.')
-      })
+          history.push('/')
+        })
+        .catch(() => {
+          alert('Erro ao cadastrar classe.')
+        })
     },
-    [name, avatar, whatsapp, bio, subject, cost, scheduleItems]
+    [name, avatar, whatsapp, bio, subject, cost, scheduleItems, history],
   )
 
   return (
@@ -158,7 +161,9 @@ const TeacherForm: React.FC = () => {
                   name="week_day"
                   label="Dia da semana"
                   value={scheduleItem.week_day}
-                  onChange={event => setScheduleItemValue(index, 'week_day', event.target.value)}
+                  onChange={event =>
+                    setScheduleItemValue(index, 'week_day', event.target.value)
+                  }
                   options={[
                     { value: '0', label: 'Domingo' },
                     { value: '1', label: 'Segunda-feira' },
@@ -175,7 +180,9 @@ const TeacherForm: React.FC = () => {
                   label="Das"
                   type="time"
                   value={scheduleItem.from}
-                  onChange={event => setScheduleItemValue(index, 'from', event.target.value)}
+                  onChange={event =>
+                    setScheduleItemValue(index, 'from', event.target.value)
+                  }
                 />
 
                 <Input
@@ -183,7 +190,9 @@ const TeacherForm: React.FC = () => {
                   label="Até"
                   type="time"
                   value={scheduleItem.to}
-                  onChange={event => setScheduleItemValue(index, 'to', event.target.value)}
+                  onChange={event =>
+                    setScheduleItemValue(index, 'to', event.target.value)
+                  }
                 />
               </div>
             ))}
@@ -191,14 +200,12 @@ const TeacherForm: React.FC = () => {
 
           <footer>
             <p>
-              <img src={warningIcon} alt="Aviso importante"/>
+              <img src={warningIcon} alt="Aviso importante" />
               Importante! <br />
               Preencha todos os dados
             </p>
 
-            <button type="submit">
-              Salvar cadastro
-            </button>
+            <button type="submit">Salvar cadastro</button>
           </footer>
         </form>
       </main>

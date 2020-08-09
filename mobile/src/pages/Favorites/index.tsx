@@ -7,7 +7,7 @@ import TeacherItem, { Teacher } from '../../components/TeacherItem'
 
 import styles from './styles'
 
-function Favorites() {
+const Favorites: React.FC = () => {
   const [favorites, setFavorites] = useState([])
 
   function loadFavorites() {
@@ -28,15 +28,11 @@ function Favorites() {
         style={styles.teacherList}
         contentContainerStyle={{
           paddingHorizontal: 16,
-          paddingBottom: 16
+          paddingBottom: 16,
         }}
       >
         {favorites.map((teacher: Teacher) => (
-          <TeacherItem
-            key={teacher.id}
-            teacher={teacher}
-            favorite
-          />
+          <TeacherItem key={teacher.id} teacher={teacher} favorite />
         ))}
       </ScrollView>
     </View>
