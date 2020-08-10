@@ -18,6 +18,7 @@ O Proffy é um projeto que visa conectar estudantes aos seus professores favorit
 - [x] Professores favoritos
 - [ ] Cadastro e Login **(2.0)**
 - [ ] Atualização de perfil **(2.0)**
+- [ ] Opção para iniciar uma video-conferência **(2.0)**
 - [ ] Dark theme **(extra)**
 - [ ] Outros idiomas **(extra)**
 
