@@ -4,7 +4,7 @@ import db from '../database/connection'
 import convertTimeToMinutes from '../utils/convertTimeToMinutes'
 
 interface ScheduleItem {
-  weekDay: number
+  week_day: number
   from: string
   to: string
 }
@@ -29,10 +29,10 @@ export default class ClassesController {
       .whereExists(function () {
         this.select('class_schedule.*')
           .from('class_schedule')
-          .whereRaw('`class_schedule`.`class_id` = `classes`.`id`')
-          .whereRaw('`class_schedule`.`week_day` = ??', [Number(weekDay)])
-          .whereRaw('`class_schedule`.`from` <= ??', [timeInMinutes])
-          .whereRaw('`class_schedule`.`to` > ??', [timeInMinutes])
+          .whereRaw('class_schedule.class_id = classes.id')
+          .whereRaw('class_schedule.week_day = ??', [Number(weekDay)])
+          .whereRaw('class_schedule.from <= ??', [timeInMinutes])
+          .whereRaw('class_schedule.to > ??', [timeInMinutes])
       })
       .where('classes.subject', '=', subject)
       .join('users', 'classes.user_id', '=', 'users.id')
@@ -55,7 +55,7 @@ export default class ClassesController {
     const trx = await db.transaction()
 
     try {
-      const insertedUsersIds = await trx('users').insert({
+      const insertedUsersIds = await trx('users').returning('id').insert({
         name,
         avatar,
         whatsapp,
@@ -64,7 +64,7 @@ export default class ClassesController {
 
       const userId = insertedUsersIds[0]
 
-      const insertedClassesIds = await trx('classes').insert({
+      const insertedClassesIds = await trx('classes').returning('id').insert({
         user_id: userId,
         subject,
         cost,
@@ -75,7 +75,7 @@ export default class ClassesController {
       const classSchedule = schedule.map((scheduleItem: ScheduleItem) => {
         return {
           class_id: classId,
-          week_day: scheduleItem.weekDay,
+          week_day: scheduleItem.week_day,
           from: convertTimeToMinutes(scheduleItem.from),
           to: convertTimeToMinutes(scheduleItem.to),
         }

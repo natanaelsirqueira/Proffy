@@ -20,13 +20,7 @@
     ],
     "rules": {
         "prettier/prettier": "error",
-        "camelcase": [
-            "error",
-            {
-                "properties": "never",
-                "ignoreDestructuring": true
-            }
-        ],
+        "camelcase": "off",
         "import/extensions": [
             "error",
             "ignorePackages",
