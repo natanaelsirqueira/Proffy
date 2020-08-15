@@ -1,6 +1,9 @@
 import { Request, Response } from 'express'
+import { getRepository, getConnection } from 'typeorm'
 
-import db from '../database/connection'
+import Class from '../entities/Class'
+import ClassSchedule from '../entities/ClassSchedule'
+import User from '../entities/User'
 import convertTimeToMinutes from '../utils/convertTimeToMinutes'
 
 interface ScheduleItem {
@@ -25,18 +28,17 @@ export default class ClassesController {
 
     const timeInMinutes = convertTimeToMinutes(time)
 
-    const classes = await db('classes')
-      .whereExists(function () {
-        this.select('class_schedule.*')
-          .from('class_schedule')
-          .whereRaw('class_schedule.class_id = classes.id')
-          .whereRaw('class_schedule.week_day = ??', [Number(weekDay)])
-          .whereRaw('class_schedule.from <= ??', [timeInMinutes])
-          .whereRaw('class_schedule.to > ??', [timeInMinutes])
+    const classes = await getRepository(Class)
+      .createQueryBuilder('class')
+      .innerJoinAndSelect('class.user', 'user')
+      .leftJoinAndSelect('class.schedule', 'class_schedule')
+      .where('class.subject = :subject', { subject })
+      .andWhere('class_schedule.week_day = :week_day', {
+        week_day: Number(weekDay),
       })
-      .where('classes.subject', '=', subject)
-      .join('users', 'classes.user_id', '=', 'users.id')
-      .select(['classes.*', 'users.*'])
+      .andWhere('class_schedule.from <= :from', { from: timeInMinutes })
+      .andWhere('class_schedule.to > :to', { to: timeInMinutes })
+      .getMany()
 
     return response.json(classes)
   }
@@ -52,43 +54,39 @@ export default class ClassesController {
       schedule,
     } = request.body
 
-    const trx = await db.transaction()
-
     try {
-      const insertedUsersIds = await trx('users').returning('id').insert({
-        name,
-        avatar,
-        whatsapp,
-        bio,
+      await getConnection().transaction(async manager => {
+        const user = await manager.save(
+          User.create({
+            name,
+            avatar,
+            whatsapp,
+            bio,
+          }),
+        )
+
+        const savedClass = await manager.save(
+          Class.create({
+            user,
+            subject,
+            cost,
+          }),
+        )
+
+        const classSchedule = schedule.map((scheduleItem: ScheduleItem) => {
+          return ClassSchedule.create({
+            class: savedClass,
+            week_day: scheduleItem.week_day,
+            from: convertTimeToMinutes(scheduleItem.from),
+            to: convertTimeToMinutes(scheduleItem.to),
+          })
+        })
+
+        await manager.save(classSchedule)
       })
-
-      const userId = insertedUsersIds[0]
-
-      const insertedClassesIds = await trx('classes').returning('id').insert({
-        user_id: userId,
-        subject,
-        cost,
-      })
-
-      const classId = insertedClassesIds[0]
-
-      const classSchedule = schedule.map((scheduleItem: ScheduleItem) => {
-        return {
-          class_id: classId,
-          week_day: scheduleItem.week_day,
-          from: convertTimeToMinutes(scheduleItem.from),
-          to: convertTimeToMinutes(scheduleItem.to),
-        }
-      })
-
-      await trx('class_schedule').insert(classSchedule)
-
-      await trx.commit()
 
       return response.status(201).send()
     } catch (error) {
-      await trx.rollback()
-
       return response
         .status(400)
         .json({ error: 'Unexpected error while creating class' })
