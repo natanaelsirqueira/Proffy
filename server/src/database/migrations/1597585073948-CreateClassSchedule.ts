@@ -15,22 +15,28 @@ export class CreateClassSchedule1597585073948 implements MigrationInterface {
           {
             name: 'class_id',
             type: 'int',
-            isNullable: false,
           },
           {
             name: 'week_day',
             type: 'int',
-            isNullable: false,
           },
           {
             name: 'from',
             type: 'int',
-            isNullable: false,
           },
           {
             name: 'to',
             type: 'int',
-            isNullable: false,
+          },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'now()',
           },
         ],
         foreignKeys: [

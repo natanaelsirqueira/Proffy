@@ -15,17 +15,14 @@ export class CreateClasses1597584732719 implements MigrationInterface {
           {
             name: 'user_id',
             type: 'int',
-            isNullable: false,
           },
           {
             name: 'subject',
             type: 'varchar',
-            isNullable: false,
           },
           {
             name: 'cost',
             type: 'decimal',
-            isNullable: false,
             precision: 10,
             scale: 2,
           },

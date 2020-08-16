@@ -1,5 +1,7 @@
 import { Request, Response } from 'express'
 import { getRepository, getConnection } from 'typeorm'
+import { hash } from 'bcrypt'
+import { classToClass } from 'class-transformer'
 
 import Class from '../entities/Class'
 import ClassSchedule from '../entities/ClassSchedule'
@@ -40,12 +42,15 @@ export default class ClassesController {
       .andWhere('class_schedule.to > :to', { to: timeInMinutes })
       .getMany()
 
-    return response.json(classes)
+    return response.json(classToClass(classes))
   }
 
   async create(request: Request, response: Response): Promise<Response> {
     const {
-      name,
+      first_name,
+      last_name,
+      email,
+      password,
       avatar,
       whatsapp,
       bio,
@@ -55,10 +60,15 @@ export default class ClassesController {
     } = request.body
 
     try {
+      const hashedPassword = await hash(password, 10)
+
       await getConnection().transaction(async manager => {
         const user = await manager.save(
           User.create({
-            name,
+            first_name,
+            last_name,
+            email,
+            password: hashedPassword,
             avatar,
             whatsapp,
             bio,

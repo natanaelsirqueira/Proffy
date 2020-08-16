@@ -15,7 +15,6 @@ export class CreateConnections1597585287278 implements MigrationInterface {
           {
             name: 'user_id',
             type: 'int',
-            isNullable: false,
           },
           {
             name: 'created_at',
