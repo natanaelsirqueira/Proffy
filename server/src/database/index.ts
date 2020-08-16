@@ -1,5 +1,3 @@
 import { createConnection } from 'typeorm'
 
-createConnection().then(() => {
-  console.log('Database connection created.')
-})
+createConnection().then(() => console.log('Database connection created'))
