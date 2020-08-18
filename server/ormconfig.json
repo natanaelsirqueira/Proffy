@@ -7,12 +7,12 @@
   "password": "docker",
   "database": "proffy",
   "entities": [
-    "./src/entities/*.ts"
+    "./src/**/entities/*.ts"
   ],
   "migrations": [
-    "./src/database/migrations/*.ts"
+    "./src/common/database/migrations/*.ts"
   ],
   "cli": {
-    "migrationsDir": "./src/database/migrations"
+    "migrationsDir": "./src/common/database/migrations"
   }
 }

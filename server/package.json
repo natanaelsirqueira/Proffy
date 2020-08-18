@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
+    "start": "ts-node-dev --transpile-only --ignore-watch node_modules src/common/http/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
     "knex:rollback": "knex --knexfile knexfile.ts migrate:rollback"
@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "knex": "^0.21.2",
     "pg": "^8.3.0",
+    "tsyringe": "^4.3.0",
     "typeorm": "^0.2.25"
   },
   "devDependencies": {

@@ -8,7 +8,7 @@ import {
   OneToMany,
 } from 'typeorm'
 
-import User from './User'
+import User from '../../users/entities/User'
 import ClassSchedule from './ClassSchedule'
 
 @Entity('classes')
@@ -21,6 +21,9 @@ class Class extends BaseEntity {
 
   @Column()
   cost: number
+
+  @Column()
+  user_id: number
 
   @OneToOne(() => User)
   @JoinColumn({ name: 'user_id' })

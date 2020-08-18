@@ -3,9 +3,9 @@ import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 
-import './database'
+import '../database'
 
-import routes from './routes'
+import router from './router'
 
 const app = express()
 
@@ -21,7 +21,7 @@ app.use((req, _resp, next) => {
   next()
 })
 
-app.use(routes)
+app.use(router)
 
 const port = process.env.PORT || 3333
 
