@@ -1,8 +1,8 @@
 import express from 'express'
 
-import usersRouter from '../../contexts/users/http/router'
-import classesRouter from '../../contexts/classes/http/router'
-import connectionsRouter from '../../contexts/connections/http/router'
+import usersRouter from '@contexts/users/http/router'
+import classesRouter from '@contexts/classes/http/router'
+import connectionsRouter from '@contexts/connections/http/router'
 
 const router = express.Router()
 

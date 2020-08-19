@@ -2,8 +2,8 @@ import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 import { getConnection } from 'typeorm'
 
-import convertTimeToMinutes from '../../../common/utils/convertTimeToMinutes'
-import UsersQueries from '../../users/UsersQueries'
+import convertTimeToMinutes from '@common/utils/convertTimeToMinutes'
+import UsersQueries from '@contexts/users/UsersQueries'
 
 import ClassSchedule from '../entities/ClassSchedule'
 import ClassesCommands from '../ClassesCommands'

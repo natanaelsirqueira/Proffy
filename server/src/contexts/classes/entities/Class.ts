@@ -8,7 +8,7 @@ import {
   OneToMany,
 } from 'typeorm'
 
-import User from '../../users/entities/User'
+import User from '@contexts/users/entities/User'
 import ClassSchedule from './ClassSchedule'
 
 @Entity('classes')

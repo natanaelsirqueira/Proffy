@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node-dev --transpile-only --ignore-watch node_modules src/common/http/server.ts",
+    "start": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules src/common/http/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
     "knex:rollback": "knex --knexfile knexfile.ts migrate:rollback"
@@ -37,6 +37,7 @@
     "eslint-plugin-standard": "4.0.0",
     "prettier": "^2.0.5",
     "ts-node-dev": "^1.0.0-pre.56",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^3.9.7"
   }
 }
